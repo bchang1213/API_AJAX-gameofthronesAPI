@@ -10,20 +10,22 @@
 		$(document).ready(function(){
 			//When user clicks a specific image, run this function:
 			$("img").click(function(){
+				// Declaring variables for calling the api
 				var apihouseurl = "https://www.anapioficeandfire.com/api/houses/";
 				var housedata = $(this).attr("apinumber");
+				//Clearing the titles div of any previous HTMl data upon clicking a new house.
+				$("#titles").html("");
+				//Retrieving API information and displaying it to the House Details box.
 				$.get(apihouseurl + housedata,function(data){
+					//Creating a variable and a function to append Title data to the titles div.
 					var titlearray = data.titles;
 					function getTitles(arr){
-						var printTitles;
 						for(var i = 0; i < arr.length; i++){
-							printTitles = $("#titles").html(arr[i]);
-							// if (i === arr.length-1){
-							// printTitles += ".";
-							// };
+							$("#titles").append("<p>"+arr[i]+"</p>");
 						};
 					};
 					console.log(data);
+					//Displaying the information of the Houses.
 					$("#name").html(data.name);
 					$("#words").html(data.words);
 					getTitles(titlearray);
@@ -50,7 +52,7 @@
 						Words: <p id="words"></p>
 					</label>
 					<label>
-						Titles: <p id="titles"></p>
+						Titles: <div id="titles"></div>
 					</label>
 				</fieldset>
 		</div>
