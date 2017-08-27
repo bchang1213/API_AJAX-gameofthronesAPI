@@ -12,16 +12,21 @@
 			$("img").click(function(){
 				var apihouseurl = "https://www.anapioficeandfire.com/api/houses/";
 				var housedata = $(this).attr("apinumber");
-				var printTitles = function getTitles(arr){
-					for(var i = 0; i < arr.length; i++){
-						$("#titles").html(data.titles[i])
-					}
-				}
 				$.get(apihouseurl + housedata,function(data){
+					var titlearray = data.titles;
+					function getTitles(arr){
+						var printTitles;
+						for(var i = 0; i < arr.length; i++){
+							printTitles = $("#titles").html(arr[i]);
+							// if (i === arr.length-1){
+							// printTitles += ".";
+							// };
+						};
+					};
 					console.log(data);
 					$("#name").html(data.name);
 					$("#words").html(data.words);
-					$("#titles").html(data.titles);
+					getTitles(titlearray);
 				},"json");
 			});
 		});
